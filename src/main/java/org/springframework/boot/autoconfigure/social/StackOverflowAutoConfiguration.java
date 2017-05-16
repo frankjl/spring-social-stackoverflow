@@ -38,7 +38,7 @@ import org.springframework.social.stackoverflow.api.StackOverflow;
 import org.springframework.social.stackoverflow.connect.StackOverflowConnectionFactory;
 
 /**
- * Autoconfiguring for StackExchange APIs
+ * Auto-configuration for StackExchange APIs
  * 
  * @author <a href="mailto:frank@crosschx.com">Frank J. Lamantia</a>
  *
