@@ -9,7 +9,7 @@ import java.util.List;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Template;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
@@ -28,6 +28,7 @@ public class StackOverflowOAuth2Template extends OAuth2Template {
 
 	public StackOverflowOAuth2Template(String clientId, String clientSecret, String authorizeUrl, String accessTokenUrl) {
 		super(clientId, clientSecret, authorizeUrl, accessTokenUrl);
+		setUseParametersForClientAuthentication(true);
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class StackOverflowOAuth2Template extends OAuth2Template {
 			}
 		};
 		converters.add(messageConverter);
-		converters.add(new MappingJacksonHttpMessageConverter());
+		converters.add(new MappingJackson2HttpMessageConverter());
 		restTemplate.setMessageConverters(converters);
 		return restTemplate;
 	}
@@ -50,6 +51,6 @@ public class StackOverflowOAuth2Template extends OAuth2Template {
 	protected AccessGrant postForAccessGrant(String accessTokenUrl, MultiValueMap<String, String> parameters) {
 		MultiValueMap<String, String> response = getRestTemplate().postForObject(accessTokenUrl, parameters, MultiValueMap.class);
 		String expires = response.getFirst("expires");
-		return new AccessGrant(response.getFirst("access_token"), null, null, expires != null ? Integer.valueOf(expires) : null);
+		return new AccessGrant(response.getFirst("access_token"), null, null, expires != null ? Long.valueOf(expires) : null);
 	}
 }

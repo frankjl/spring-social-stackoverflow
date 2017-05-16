@@ -11,8 +11,8 @@ import org.springframework.social.stackoverflow.api.StackOverflow;
  */
 public class StackOverflowConnectionFactory extends OAuth2ConnectionFactory<StackOverflow> {
 
-	public StackOverflowConnectionFactory(String clientId, String clientSecret) {
-		super("stackoverflow", new StackOverflowServiceProvider(clientId, clientSecret), new StackOverflowAdapter());
+	public StackOverflowConnectionFactory(String clientId, String clientSecret, String key) {
+		super("stackoverflow", new StackOverflowServiceProvider(clientId, clientSecret, key), new StackOverflowAdapter());
 	}
 
 }

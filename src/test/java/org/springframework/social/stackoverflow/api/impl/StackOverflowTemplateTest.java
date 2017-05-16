@@ -2,9 +2,9 @@ package org.springframework.social.stackoverflow.api.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.test.web.client.RequestMatchers.method;
-import static org.springframework.test.web.client.RequestMatchers.requestTo;
-import static org.springframework.test.web.client.ResponseCreators.withResponse;
+import static org.springframework.test.web.client.match.RequestMatchers.method;
+import static org.springframework.test.web.client.match.RequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.ResponseCreators.withResponse;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class StackOverflowTemplateTest {
 
 	@Before
 	public void setup() {
-		stackoverflow = new StackOverflowTemplate("accessToken");
+		stackoverflow = new StackOverflowTemplate("accessToken", "key");
 		mockServer = MockRestServiceServer.createServer(stackoverflow.getRestTemplate());
 		responseHeaders = new HttpHeaders();
 		responseHeaders.setContentType(MediaType.APPLICATION_JSON);

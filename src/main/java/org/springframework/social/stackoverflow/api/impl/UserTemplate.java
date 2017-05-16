@@ -1,11 +1,7 @@
 package org.springframework.social.stackoverflow.api.impl;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.social.stackoverflow.api.StackOverflowReputation;
@@ -16,8 +12,6 @@ import org.springframework.web.client.RestTemplate;
 public class UserTemplate extends AbstractStackOverflowOperations implements UserOperations {
 
 	private final RestTemplate restTemplate;
-
-	private final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss Z", Locale.ENGLISH);
 
 	public UserTemplate(RestTemplate restTemplate, boolean isAuthorised) {
 		super(isAuthorised);
@@ -36,10 +30,9 @@ public class UserTemplate extends AbstractStackOverflowOperations implements Use
 		String profileUrl = String.valueOf(userJson.get("link"));
 		String websiteUrl = String.valueOf(userJson.get("website_url"));
 		Long accountId = Long.valueOf(String.valueOf(userJson.get("account_id")));
-		Integer acceptRate = Integer.valueOf(String.valueOf(userJson.get("accept_rate")));
-		Date accountCreationDate = toDate(String.valueOf(userJson.get("creation_date")), dateFormat);
-		Date lastAccessedDate = toDate(String.valueOf(userJson.get("last_access_date")), dateFormat);
-		Date lastModifiedDate = toDate(String.valueOf(userJson.get("last_modified_date")), dateFormat);
+		Date accountCreationDate = toDate(String.valueOf(userJson.get("creation_date")));
+		Date lastAccessedDate = toDate(String.valueOf(userJson.get("last_access_date")));
+		Date lastModifiedDate = toDate(String.valueOf(userJson.get("last_modified_date")));
 
 		Integer reputationScore = Integer.valueOf(String.valueOf(userJson.get("reputation")));
 		Integer reputationChangeDay = Integer.valueOf(String.valueOf(userJson.get("reputation_change_day")));
@@ -52,21 +45,22 @@ public class UserTemplate extends AbstractStackOverflowOperations implements Use
 		Integer goldBadgeCount = Integer.valueOf(String.valueOf(badgeJson.get("gold")));
 		Integer silverBadgeCount = Integer.valueOf(String.valueOf(badgeJson.get("silver")));
 		Integer bronzeBadgeCount = Integer.valueOf(String.valueOf(badgeJson.get("bronze")));
-		StackOverflowReputation reputation = new StackOverflowReputation(reputationScore, reputationChangeDay, reputationChangeWeek, reputationChangeMonth,
-				reputationChangeQuarter, reputationChangeYear);
+		StackOverflowReputation reputation = new StackOverflowReputation(reputationScore, reputationChangeDay, reputationChangeWeek,
+				reputationChangeMonth, reputationChangeQuarter, reputationChangeYear);
 
 		StackOverflowUser user = new StackOverflowUser(userId, accountCreationDate, displayName, profileImageUrl, reputation, lastAccessedDate,
-				lastModifiedDate, profileUrl, websiteUrl, accountId, goldBadgeCount, silverBadgeCount, bronzeBadgeCount, acceptRate);
+				lastModifiedDate, profileUrl, websiteUrl, accountId, goldBadgeCount, silverBadgeCount, bronzeBadgeCount);
 
 		return user;
 	}
 
-	private Date toDate(String dateString, DateFormat dateFormat) {
-		try {
-			return dateFormat.parse(dateString);
-		} catch (ParseException e) {
-			return null;
-		}
+	/**
+	 * Parse as Unix epoch time
+	 * 
+	 * @param dateString
+	 * @return
+	 */
+	private Date toDate(String dateString) {
+		return new Date(Long.valueOf(dateString) * 1000);
 	}
-
 }

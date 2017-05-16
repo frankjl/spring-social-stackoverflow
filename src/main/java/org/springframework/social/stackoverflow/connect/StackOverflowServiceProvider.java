@@ -12,13 +12,16 @@ import org.springframework.social.stackoverflow.api.impl.StackOverflowTemplate;
  */
 public class StackOverflowServiceProvider extends AbstractOAuth2ServiceProvider<StackOverflow> {
 
-	public StackOverflowServiceProvider(String clientId, String clientSecret) {
+	private String key;
+	
+	public StackOverflowServiceProvider(String clientId, String clientSecret, String key) {
 		super(new StackOverflowOAuth2Template(clientId, clientSecret, "https://stackexchange.com/oauth", "https://stackexchange.com/oauth/access_token"));
+		this.key = key;
 	}
 
 	@Override
 	public StackOverflow getApi(String accessToken) {
-		return new StackOverflowTemplate(accessToken);
+		return new StackOverflowTemplate(accessToken, key);
 	}
 
 }

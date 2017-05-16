@@ -15,7 +15,7 @@ public class StackOverflowUser {
 
 	public StackOverflowUser(Long userId, Date accountCreationDate, String displayName, String profileImageUrl, StackOverflowReputation reputation,
 			Date lastAccessedDate, Date lastModifiedDate, String profileUrl, String websiteUrl, Long accountId, Integer goldBadgeCount,
-			Integer silverBadgeCount, Integer bronzeBadgeCount, Integer acceptRate) {
+			Integer silverBadgeCount, Integer bronzeBadgeCount) {
 		this.userId = userId;
 		this.accountCreationDate = accountCreationDate;
 		this.displayName = displayName;
@@ -29,7 +29,6 @@ public class StackOverflowUser {
 		this.goldBadgeCount = goldBadgeCount;
 		this.silverBadgeCount = silverBadgeCount;
 		this.bronzeBadgeCount = bronzeBadgeCount;
-		this.acceptRate = acceptRate;
 	}
 
 	private Long userId;
@@ -45,7 +44,6 @@ public class StackOverflowUser {
 	private Integer goldBadgeCount;
 	private Integer silverBadgeCount;
 	private Integer bronzeBadgeCount;
-	private Integer acceptRate;
 
 	public Long getUserId() {
 		return userId;
@@ -149,14 +147,6 @@ public class StackOverflowUser {
 
 	public void setBronzeBadgeCount(Integer bronzeBadgeCount) {
 		this.bronzeBadgeCount = bronzeBadgeCount;
-	}
-
-	public Integer getAcceptRate() {
-		return acceptRate;
-	}
-
-	public void setAcceptRate(Integer acceptRate) {
-		this.acceptRate = acceptRate;
 	}
 
 }
