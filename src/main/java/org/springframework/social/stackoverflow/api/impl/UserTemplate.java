@@ -45,11 +45,13 @@ public class UserTemplate extends AbstractStackOverflowOperations implements Use
 		Integer goldBadgeCount = Integer.valueOf(String.valueOf(badgeJson.get("gold")));
 		Integer silverBadgeCount = Integer.valueOf(String.valueOf(badgeJson.get("silver")));
 		Integer bronzeBadgeCount = Integer.valueOf(String.valueOf(badgeJson.get("bronze")));
+		String location = (String) userJson.get("location");
+
 		StackOverflowReputation reputation = new StackOverflowReputation(reputationScore, reputationChangeDay, reputationChangeWeek,
 				reputationChangeMonth, reputationChangeQuarter, reputationChangeYear);
 
 		StackOverflowUser user = new StackOverflowUser(userId, accountCreationDate, displayName, profileImageUrl, reputation, lastAccessedDate,
-				lastModifiedDate, profileUrl, websiteUrl, accountId, goldBadgeCount, silverBadgeCount, bronzeBadgeCount);
+				lastModifiedDate, profileUrl, websiteUrl, accountId, goldBadgeCount, silverBadgeCount, bronzeBadgeCount, location);
 
 		return user;
 	}

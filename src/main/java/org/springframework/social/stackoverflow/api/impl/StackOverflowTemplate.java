@@ -70,6 +70,7 @@ public class StackOverflowTemplate extends AbstractOAuth2ApiBinding implements S
 			if (!decorator.getURI().toString().contains("access_token")) {
 				decorator.addParameter("access_token", StackOverflowTemplate.this.accessToken);
 			}
+			System.out.println("URL:    " + decorator.getURI());
 			return execution.execute(decorator, body);
 		}
 	}

@@ -15,7 +15,7 @@ public class StackOverflowUser {
 
 	public StackOverflowUser(Long userId, Date accountCreationDate, String displayName, String profileImageUrl, StackOverflowReputation reputation,
 			Date lastAccessedDate, Date lastModifiedDate, String profileUrl, String websiteUrl, Long accountId, Integer goldBadgeCount,
-			Integer silverBadgeCount, Integer bronzeBadgeCount) {
+			Integer silverBadgeCount, Integer bronzeBadgeCount, String location) {
 		this.userId = userId;
 		this.accountCreationDate = accountCreationDate;
 		this.displayName = displayName;
@@ -44,6 +44,7 @@ public class StackOverflowUser {
 	private Integer goldBadgeCount;
 	private Integer silverBadgeCount;
 	private Integer bronzeBadgeCount;
+	private String location;
 
 	public Long getUserId() {
 		return userId;
